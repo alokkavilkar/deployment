@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-app
+  template:
+    metadata:
+      labels:
+        app: pg-app
+    spec:
+      containers:
+      - name: pg-app
+        image: pg-app:latest
+        imagePullPolicy: IfNotPresent   # 🔥 IMPORTANT
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PGUSER
+          value: "postgres"
+        - name: PGPASSWORD
+          value: "postgresql2"
+        - name: PGDATABASE
+          value: "mydb"
+
