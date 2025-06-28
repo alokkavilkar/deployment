@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pg-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: pg-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: pg-app
-        image: pg-app:latest
+        image: app:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -30,5 +30,13 @@ spec:
               name: postgres-secret
               key: POSTGRES_PASSWORD
         - name: PGDATABASE
-          value: "mydb"
+          valueFrom:
+            configMapKeyRef:
+              name: pg-app-config
+              key: PGDATABASE 
+        - name: PGPOOL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: pg-app-config
+              key: PGPOOL_HOST
 

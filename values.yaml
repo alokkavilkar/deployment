@@ -1,0 +1,4 @@
+postgresql:
+  username: root
+  password: alok
+  database: users

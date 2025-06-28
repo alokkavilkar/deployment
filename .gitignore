@@ -1,0 +1,11 @@
+.cache
+.kube
+.npm
+.ssh
+.Xauthority
+.bash_logout
+.bashrc
+.profile
+.sudo_as_admin_successful
+.viminfo
+node_modules/

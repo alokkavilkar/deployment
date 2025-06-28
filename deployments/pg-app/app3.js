@@ -7,8 +7,10 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+const pgpoolHost = process.env.PGPOOL_HOST || 'pg-ha-postgresql-ha-pgpool.default.svc.cluster.local';
+
 const writeClient = new Client({
-  host: 'postgres-0.postgres.default.svc.cluster.local',
+  host: pgpoolHost,
   port: 5432,
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
@@ -16,12 +18,13 @@ const writeClient = new Client({
 });
 
 const readClient = new Client({
-  host: 'postgres-1.postgres.default.svc.cluster.local',
+  host: pgpoolHost,
   port: 5432,
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
   database: process.env.PGDATABASE,
 });
+
 async function initDB() {
   try {
     await writeClient.connect();

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg-app-config
+data:
+  PGPOOL_HOST: pg-ha-postgresql-ha-pgpool.default.svc.cluster.local
+  PGDATABASE: users
+
